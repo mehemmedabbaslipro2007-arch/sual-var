@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap');
+
+:root {
+  --pink-1: #ffd6e8;
+  --pink-2: #ff9ec7;
+  --pink-3: #ff5c8a;
+  --frame-bg: #fffaf9;
+  --ink: #5a3b45;
+  --ink-soft: #9c6b78;
+  --border-soft: #f6cfdd;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Quicksand', 'Segoe UI', Verdana, sans-serif;
+  background: radial-gradient(circle at 20% 20%, #ffe3ef 0%, transparent 55%),
+              radial-gradient(circle at 80% 80%, #ffc2d9 0%, transparent 55%),
+              linear-gradient(150deg, #ffd6e8 0%, #ff9ec7 55%, #ff8fb3 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  padding: 24px;
+  position: relative;
+}
+
+/* ---------- üzən ürəklər / bəzək fon qatı ---------- */
+.floaties {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floaties span {
+  position: absolute;
+  bottom: -10%;
+  font-size: 22px;
+  opacity: 0.55;
+  animation: float-up linear infinite;
+  filter: drop-shadow(0 2px 3px rgba(255,255,255,0.4));
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(-115vh) translateX(var(--drift, 20px)) rotate(25deg); opacity: 0; }
+}
+
+/* ---------- əsas çərçivə (kart) ---------- */
+.card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  background: var(--frame-bg);
+  border-radius: 34px;
+  padding: 30px 28px 34px;
+  text-align: center;
+  box-shadow: 0 25px 60px -15px rgba(255, 92, 138, 0.45), 0 2px 0 rgba(255,255,255,0.6) inset;
+  border: 3px dashed var(--border-soft);
+  overflow: visible;
+}
+
+.card-glow {
+  position: absolute;
+  inset: -30px;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 65%);
+  filter: blur(10px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 22px;
+  animation: twinkle 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.sparkle-tl { top: 10px; left: 16px; animation-delay: 0.3s; }
+.sparkle-br { bottom: 14px; right: 18px; animation-delay: 1s; }
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+  50% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+}
+
+/* ---------- dovşan səhnəsi ---------- */
+.stage {
+  width: 190px;
+  height: 190px;
+  margin: 4px auto 14px;
+  position: relative;
+}
+
+.bunny-face {
+  display: none;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  border: 5px solid #fff;
+  box-shadow: 0 14px 28px -10px rgba(255, 92, 138, 0.5);
+}
+
+.bunny-face.active {
+  display: block;
+  animation: pop-in 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* BƏLİ anında şəkil bir az daha böyük görünsün (konteyner böyüyür, təkcə şəkil yox -
+   belə olanda mərkəzləşmə pozulmur; absolute elementi birbaşa böyütsən, overflow
+   olan mənfi margin sıfıra düşür və şəkil sağa doğru sürüşür) */
+.card.celebrating .stage {
+  width: 264px;
+  height: 264px;
+  margin-bottom: 28px;
+}
+
+@keyframes pop-in {
+  0%   { transform: scale(0.55) rotate(-6deg); opacity: 0; }
+  60%  { transform: scale(1.08) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ---------- mətnlər ---------- */
+.question {
+  font-family: 'Baloo 2', 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink);
+  margin: 6px 6px 6px;
+  line-height: 1.3;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease;
+}
+
+.datetime-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 0 auto 10px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #fff0f4, #ffe0ea);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: 'Baloo 2', 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.subtext {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+  font-weight: 600;
+  transition: opacity 0.15s ease;
+}
+
+.question.swap, .subtext.swap { opacity: 0; }
+
+/* ---------- düymələr ---------- */
+.btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 56px;
+}
+
+.btn {
+  font-family: 'Baloo 2', 'Quicksand', sans-serif;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, left 0.28s cubic-bezier(.22,1,.36,1), top 0.28s cubic-bezier(.22,1,.36,1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active { transform: scale(0.94); }
+
+.btn-yes {
+  background: linear-gradient(135deg, #ff7aa2, #ff4d7d);
+  color: #fff;
+  box-shadow: 0 10px 24px -6px rgba(255, 77, 125, 0.65);
+}
+.btn-yes:hover { transform: translateY(-2px) scale(1.04); }
+
+.btn-no {
+  background: #fff0f4;
+  color: var(--ink-soft);
+  border: 2px solid var(--border-soft);
+}
+
+.btn-no.roaming {
+  position: fixed;
+  z-index: 50;
+  box-shadow: 0 12px 26px -8px rgba(90, 59, 69, 0.35);
+}
+
+/* ---------- effekt canvas (konfeti / fişək) ---------- */
+#fx {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+  display: none;
+}
+
+/* ---------- kiçik ekranlar ---------- */
+@media (max-width: 420px) {
+  .card { padding: 24px 18px 28px; border-radius: 26px; }
+  .stage { width: 150px; height: 160px; }
+  .question { font-size: 20px; min-height: 54px; }
+  .btn { padding: 12px 20px; font-size: 15px; }
+}

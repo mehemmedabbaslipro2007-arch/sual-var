@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>bir sualım var... 💌</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- üzən ürəklər / bəzək fonu -->
+  <div class="floaties" id="floaties" aria-hidden="true"></div>
+
+  <main class="card" id="card">
+    <div class="card-glow" aria-hidden="true"></div>
+
+    <div class="sparkle sparkle-tl" aria-hidden="true">✨</div>
+    <div class="sparkle sparkle-br" aria-hidden="true">✨</div>
+
+    <div class="stage" id="bunnyStage">
+      <img class="bunny-face active" id="face-ask" src="assets/bunny-ask.jpg" alt="dovşan - soruşur">
+      <img class="bunny-face" id="face-shy" src="assets/bunny-shy.jpg" alt="dovşan - utancaq">
+      <img class="bunny-face" id="face-annoyed" src="assets/bunny-annoyed.jpg" alt="dovşan - əsəbi">
+      <img class="bunny-face" id="face-sad" src="assets/bunny-sad.jpg" alt="dovşan - kövrək">
+      <img class="bunny-face" id="face-pleading" src="assets/bunny-pleading.jpg" alt="dovşan - yalvarır">
+      <img class="bunny-face" id="face-tired" src="assets/bunny-tired.jpg" alt="dovşan - laqeyd">
+      <img class="bunny-face" id="face-questioning" src="assets/bunny-questioning.jpg" alt="dovşan - sual dolu">
+      <img class="bunny-face" id="face-joy" src="assets/bunny-joy.jpg" alt="dovşan - sevincli">
+    </div>
+
+    <p class="question" id="question">Mənimlə date çıxarsan? 💕</p>
+    <p class="datetime-badge" id="datetimeBadge">📅 1-ci gün, saat 17:30</p>
+    <p class="subtext" id="subtext">bir cavabın var, elə deyilmi? 🐇</p>
+
+    <div class="btn-row" id="btnRow">
+      <button class="btn btn-yes" id="yesBtn" type="button">BƏLİ</button>
+      <button class="btn btn-no" id="noBtn" type="button">XEYR</button>
+    </div>
+  </main>
+
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

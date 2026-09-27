@@ -89,11 +89,19 @@
     return browser ? `${os} (${browser})` : os;
   }
 
+  // toLocaleString('az-AZ') Safari/iOS-da düzgün işləmir (ICU dil datası yoxdur,
+  // saatı da səhv çıxarır) - ona görə tarix əl ilə, cihazın öz lokal saatından qurulur
+  function formatLocalTime(date) {
+    const pad = (n) => String(n).padStart(2, '0');
+    const months = ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'];
+    return `${pad(date.getDate())} ${months[date.getMonth()]} ${date.getFullYear()}, ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+
   function notifyYes() {
     // xüsusi header YOX - "Title"/"Tags" kimi header-lər CORS preflight tetikləyir,
     // bu da file:// səhifədən gedən sorğunu səssizcə bloklaya bilirdi
     const device = getDeviceLabel();
-    const time = new Date().toLocaleString('az-AZ', { dateStyle: 'medium', timeStyle: 'short' });
+    const time = formatLocalTime(new Date());
     fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       body: `🎉 BƏLİ dedi! — 1-ci gün saat 17:30 üçün hazırlaş 💌\nCihaz: ${device}\nVaxt: ${time}`,

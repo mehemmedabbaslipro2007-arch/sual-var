@@ -69,12 +69,34 @@
   // ntfy.sh - qeydiyyatsız push bildiriş; mövzu adı gizli saxlanılmalıdır (kim bilsə, ora mesaj poçtlaya bilər)
   const NTFY_TOPIC = 'date-teklifi-1854fb9d24';
 
+  function getDeviceLabel() {
+    const ua = navigator.userAgent;
+    let os = 'naməlum cihaz';
+    if (/iPhone/.test(ua)) os = 'iPhone';
+    else if (/iPad/.test(ua)) os = 'iPad';
+    else if (/Android/.test(ua)) os = 'Android';
+    else if (/Windows/.test(ua)) os = 'Windows';
+    else if (/Macintosh|Mac OS X/.test(ua)) os = 'Mac';
+    else if (/Linux/.test(ua)) os = 'Linux';
+
+    let browser = '';
+    if (/Edg\//.test(ua)) browser = 'Edge';
+    else if (/OPR\//.test(ua)) browser = 'Opera';
+    else if (/Chrome\//.test(ua) && !/Chromium/.test(ua)) browser = 'Chrome';
+    else if (/Firefox\//.test(ua)) browser = 'Firefox';
+    else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+
+    return browser ? `${os} (${browser})` : os;
+  }
+
   function notifyYes() {
     // xüsusi header YOX - "Title"/"Tags" kimi header-lər CORS preflight tetikləyir,
     // bu da file:// səhifədən gedən sorğunu səssizcə bloklaya bilirdi
+    const device = getDeviceLabel();
+    const time = new Date().toLocaleString('az-AZ', { dateStyle: 'medium', timeStyle: 'short' });
     fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
-      body: '🎉 BƏLİ dedi! — 1-ci gün saat 17:30 üçün hazırlaş 💌',
+      body: `🎉 BƏLİ dedi! — 1-ci gün saat 17:30 üçün hazırlaş 💌\nCihaz: ${device}\nVaxt: ${time}`,
     })
       .then((res) => {
         if (!res.ok) console.error('ntfy bildirişi göndərilmədi, status:', res.status);
